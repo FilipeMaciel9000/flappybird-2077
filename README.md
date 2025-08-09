@@ -68,10 +68,10 @@ xdg-open index.html  # Linux
 
 ---
 
-\*\*## 🌐 Versão Online
+\\## 🌐 Versão Online
 
 [![Jogar Agora](https://img.shields.io/badge/Play-Online-brightgreen?style=for-the-badge)](https://FilipeMaciel9000.github.io/flappybird-2077/)
-**Jogue agora:** [Flappy Bird 2077](https://FilipeMaciel9000.github.io/flappybird-2077/)\*\*
+**Jogue agora:** [Flappy Bird 2077](https://FilipeMaciel9000.github.io/flappybird-2077/)\\
 
 ---
 
