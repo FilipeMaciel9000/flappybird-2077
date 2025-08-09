@@ -90,4 +90,4 @@ Se deseja sugerir melhorias ou reportar bugs:
 ## 📜 Licença
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-Este projeto está sob a licença MIT — veja o arquivo [LICENSE](./https://opensource.org/licenses/MIT) para mais detalhes.
+Este projeto está sob a licença MIT — veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
