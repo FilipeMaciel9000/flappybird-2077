@@ -1,6 +1,6 @@
 # 🐦 Flappy Bird 2077 – Cyberpunk Arcade Experience
 
-### Navegue pelos arranha-céus neon de Night City e teste seus reflexos!
+> **Navegue pelos arranha-céus neon de Night City e teste seus reflexos em uma releitura futurista do clássico Flappy Bird.**
 
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
@@ -12,69 +12,82 @@
 
 ## 🚀 Sobre o Projeto
 
-**Flappy Bird 2077** é uma releitura vibrante do clássico Flappy Bird, ambientada em um mundo **Cyberpunk distópico**.
-Criado apenas com **HTML, CSS e JavaScript Vanilla**, o jogo combina mecânicas simples e viciantes com uma estética visual rica em **neon, efeitos futuristas e atmosfera imersiva**.
+**Flappy Bird 2077** é um jogo arcade de estética **cyberpunk**, ambientado em um mundo **distópico** inspirado em Night City.  
+Foi desenvolvido com **HTML, CSS e JavaScript puros**, focando em **desempenho e jogabilidade fluida**.
 
-Seu objetivo é simples: guiar seu pássaro cibernético através dos canos iluminados de Night City, desafiando seus reflexos enquanto a dificuldade aumenta a cada ponto marcado.
+🎯 **Objetivo**: guiar seu pássaro cibernético pelos obstáculos neon, testando seus reflexos e resistência à dificuldade crescente.
 
 ---
 
 ## 📸 Demonstração
 
-### Tela inicial:
-![Prévia da Página](./assets/images/preview.jpg)  
-
-### Gameplay:
-![Gameplay Demo](./assets/images/gameplay.gif) 
+| Tela Inicial                                 | Gameplay                                  |
+| -------------------------------------------- | ----------------------------------------- |
+| ![Tela Inicial](./assets/images/preview.jpg) | ![Gameplay](./assets/images/gameplay.gif) |
 
 ---
 
-## ✨ Principais Recursos
+## ✨ Recursos
 
-- **Tema Cyberpunk Autêntico:** Paleta neon (azul-ciano, rosa choque, laranja e amarelo) e tipografia retrô (‘Orbitron’ e ‘Press Start 2P’) para uma atmosfera futurista.
-- **Efeitos Visuais Dinâmicos:** Scanlines, grids animados, brilho neon e animações sutis para enriquecer a experiência.
-- **Mecânica Fiel ao Original:** Gravidade, pulos responsivos (clique ou tecla espaço), geração procedural de canos e detecção de colisão.
-- **Dificuldade Progressiva:** Velocidade e frequência dos obstáculos aumentam conforme o jogador pontua.
-- **Interface Intuitiva:** Telas de início e fim de jogo, com botões estilizados e feedback de pontuação imediato.
-- **Frontend Puro:** Sem dependência de frameworks JS complexos, priorizando código limpo e otimizado.
+- **🎨 Design Imersivo** – paleta neon (azul-ciano / rosa choque) e tipografia _Orbitron_
+- **⚡ Efeitos Visuais** – scanlines, grids animados e brilho neon
+- **🎮 Jogabilidade Melhorada**
+  - Controles responsivos (clique ou espaço)
+  - Geração procedural de obstáculos
+  - Dificuldade progressiva
+- **🚀 Performance Otimizada** – código JavaScript puro, sem dependências pesadas
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5** – Estrutura base do jogo e UI.
-- **CSS3** – Estilo, animações e responsividade.
-- **Tailwind CSS** – Utilitários para layout e estilização rápida.
-- **JavaScript (Vanilla)** – Lógica de jogo e interação do usuário.
-- **Font Awesome** – Ícones de controle e interface.
-- **Google Fonts** – Tipografia temática.
+| Tecnologia         | Função               |
+| ------------------ | -------------------- |
+| HTML5              | Estrutura do jogo    |
+| CSS3 + TailwindCSS | Estilização e layout |
+| JavaScript Vanilla | Lógica e mecânica    |
+| Font Awesome       | Ícones               |
+| Google Fonts       | Tipografia           |
 
 ---
 
-## 💻 Como Rodar Localmente
+## 💻 Como Executar Localmente
 
-1. **Baixe os arquivos**
-   No GitHub, clique em **"<> Code"** → **"Download ZIP"**.
-2. **Extraia o conteúdo**
-   Descompacte o arquivo ZIP em uma pasta de sua preferência.
-3. **Abra no navegador**
-   Dê duplo clique no arquivo `index.html` para iniciar o jogo.
+```bash
+# 1. Clone o repositório
+git clone https://github.com/FilipeMaciel9000/flappybird-2077.git
 
----
+# 2. Acesse a pasta
+cd flappybird-2077
 
-## 📌 Status e Próximos Passos
-
-O projeto já é **totalmente jogável**, mas algumas melhorias estão planejadas.
-
-**Melhorias futuras:**
-
-- Placar global (Leaderboard).
-- Opções de personalização.
-- Efeitos sonoros e trilha sonora temática.
+# 3. Abra o arquivo principal
+start index.html  # Windows
+open index.html   # macOS
+xdg-open index.html  # Linux
+```
 
 ---
 
-## ❤️ Contribuindo
+\*\*## 🌐 Versão Online
 
-Quer ajudar? Sinta-se à vontade para **abrir issues**, sugerir melhorias ou enviar pull requests.
-Feedback é sempre bem-vindo — toda sugestão ajuda o Flappy Bird 2077 a voar ainda mais alto!
+[![Jogar Agora](https://img.shields.io/badge/Play-Online-brightgreen?style=for-the-badge)](https://FilipeMaciel9000.github.io/flappybird-2077/)
+**Jogue agora:** [Flappy Bird 2077](https://FilipeMaciel9000.github.io/flappybird-2077/)\*\*
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas!
+Se deseja sugerir melhorias ou reportar bugs:
+
+1. Faça um fork do projeto
+2. Crie uma branch: `git checkout -b minha-melhoria`
+3. Commit suas alterações: `git commit -m "Descrição da melhoria"`
+4. Envie um Pull Request
+
+---
+
+## 📜 Licença
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Este projeto está sob a licença MIT — veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
