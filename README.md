@@ -22,6 +22,7 @@ Seu objetivo é simples: guiar seu pássaro cibernético através dos canos ilum
 ## 📸 Demonstração
 
 ![Prévia da Página](./assets/images/preview.jpg)  
+![Gameplay Demo](https://example.com/path/to/your/gameplay.gif) 
 
 ---
 
