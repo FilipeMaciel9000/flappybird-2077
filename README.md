@@ -23,7 +23,7 @@ Foi desenvolvido com **HTML, CSS e JavaScript puros**, focando em **desempenho e
 
 | Tela Inicial                                 | Gameplay                                  |
 | -------------------------------------------- | ----------------------------------------- |
-| ![Tela Inicial](./assets/images/preview.jpg) | ![Gameplay](./assets/images/gameplay.gif) |
+| ![Tela Inicial](images/preview.jpg) | ![Gameplay](images/gameplay.gif) |
 
 ---
 
