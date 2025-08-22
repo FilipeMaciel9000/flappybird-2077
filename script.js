@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Asset preloading
   async function preloadAssets() {
     const assets = [
-      { src: './assets/images/flappybird.png', type: 'image' },
-      { src: './assets/images/neoncity.png', type: 'image' },
+      { src: 'images/flappybird.png', type: 'image' },
+      { src: 'images/nightcity.png', type: 'image' },
     ];
 
     const loadPromises = assets.map((asset) => {
