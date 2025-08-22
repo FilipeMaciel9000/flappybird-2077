@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Flappy Bird com estetica Cyberpunk no navegador web."
+    />
+    <meta name="author" content="Filipe Maciel" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🐦&lt;/text&gt;&lt;/svg&gt;"
+    />
+    <title>Flappy Bird 2077</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+
+      body {
+        font-family: 'Orbitron', sans-serif;
+        background-color: #0f0e17;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        color: #00f3ff;
+        text-shadow: 0 0 5px #00f3ff;
+      }
+
+      #gameContainer {
+        position: relative;
+        width: 400px;
+        height: 600px;
+        margin: 20px auto;
+        background-color: #1a1a2e;
+        border: 3px solid #00f3ff;
+        box-shadow: 0 0 20px #00f3ff, inset 0 0 10px #00f3ff;
+        overflow: hidden;
+      }
+
+      #bird {
+        position: absolute;
+        width: 40px;
+        height: 30px;
+        background-color: #ff2a6d;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        box-shadow: 0 0 10px #ff2a6d;
+        z-index: 10;
+      }
+
+      .pipe {
+        position: absolute;
+        width: 60px;
+        background-color: #05d9e8;
+        box-shadow: 0 0 10px #05d9e8;
+        border: 2px solid #00f3ff;
+      }
+
+      #score {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        z-index: 100;
+      }
+
+      #gameOver {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 14, 23, 0.9);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 200;
+      }
+
+      #startScreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 14, 23, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 200;
+      }
+
+      .neon-text {
+        color: #00f3ff;
+        text-shadow: 0 0 5px #00f3ff, 0 0 10px #00f3ff;
+        animation: flicker 1.5s infinite alternate;
+      }
+
+      @keyframes flicker {
+        0%,
+        19%,
+        21%,
+        23%,
+        25%,
+        54%,
+        56%,
+        100% {
+          text-shadow: 0 0 5px #00f3ff, 0 0 10px #00f3ff;
+        }
+        20%,
+        24%,
+        55% {
+          text-shadow: none;
+        }
+      }
+
+      .glow-button {
+        background: transparent;
+        color: #00f3ff;
+        border: 2px solid #00f3ff;
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 0 10px #00f3ff;
+      }
+
+      .glow-button:hover {
+        background: #00f3ff;
+        color: #0f0e17;
+        box-shadow: 0 0 20px #00f3ff;
+      }
+
+      .scanline {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 243, 255, 0.05) 0%,
+          rgba(0, 243, 255, 0) 10%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        animation: scanline 8s linear infinite;
+        z-index: 50;
+      }
+
+      @keyframes scanline {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 100%;
+        }
+      }
+
+      .grid-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            rgba(0, 243, 255, 0.1) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(0, 243, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 243, 255, 0);
+        }
+      }
+    </style>
+  </head>
+  <body class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="neon-text text-4xl mb-4">FLAPPY BIRD 2077</h1>
+
+    <div id="gameContainer" class="relative">
+      <div class="scanline"></div>
+      <div class="grid-overlay"></div>
+
+      <div id="bird"></div>
+      <div id="score">0</div>
+
+      <div id="gameOver">
+        <h2 class="neon-text text-3xl mb-4">GAME OVER</h2>
+        <p class="neon-text mb-6">SCORE: <span id="finalScore">0</span></p>
+        <button id="restartButton" class="glow-button pulse">
+          <i class="fas fa-sync-alt mr-2"></i>RESTART
+        </button>
+      </div>
+
+      <div id="startScreen">
+        <h2 class="neon-text text-3xl mb-6">FLAPPY BIRD 2077</h2>
+        <p class="neon-text mb-8 text-center px-4">
+          Navigate the neon-lit pipes of Night City
+        </p>
+        <button id="startButton" class="glow-button pulse">
+          <i class="fas fa-play mr-2"></i>START
+        </button>
+        <div class="mt-8 text-xs neon-text opacity-70">
+          <p>SPACE or CLICK to jump</p>
+          <p class="mt-2">Avoid the pipes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 text-xs neon-text opacity-50">
+      <p>© FILIPE MACIEL GAMES CORP</p>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const gameContainer = document.getElementById('gameContainer');
+        const bird = document.getElementById('bird');
+        const scoreElement = document.getElementById('score');
+        const gameOverScreen = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+        const restartButton = document.getElementById('restartButton');
+        const startScreen = document.getElementById('startScreen');
+        const startButton = document.getElementById('startButton');
+
+        // Game variables
+        let gameRunning = false;
+        let score = 0;
+        let gravity = 0.5;
+        let velocity = 0;
+        let birdPosition = 250;
+        let pipes = [];
+        let pipeGap = 150;
+        let pipeFrequency = 1500;
+        let lastPipeTime = 0;
+        let gameSpeed = 2;
+        let animationId;
+
+        // Bird dimensions
+        const birdWidth = 40;
+        const birdHeight = 30;
+
+        // Initialize bird position
+        bird.style.left = '100px';
+        bird.style.top = birdPosition + 'px';
+
+        // Start game
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', startGame);
+
+        // Jump controls
+        document.addEventListener('keydown', (e) => {
+          if (
+            (e.code === 'Space' || e.key === ' ' || e.key === 'ArrowUp') &&
+            gameRunning
+          ) {
+            jump();
+          }
+        });
+
+        gameContainer.addEventListener('click', () => {
+          if (gameRunning) {
+            jump();
+          }
+        });
+
+        function jump() {
+          velocity = -10;
+          // Add jump effect
+          bird.style.transform = 'rotate(-30deg)';
+          setTimeout(() => {
+            bird.style.transform = 'rotate(0deg)';
+          }, 300);
+        }
+
+        function startGame() {
+          // Reset game state
+          gameRunning = true;
+          score = 0;
+          scoreElement.textContent = score;
+          birdPosition = 250;
+          velocity = 0;
+          pipes = [];
+
+          // Clear all pipes
+          document.querySelectorAll('.pipe').forEach((pipe) => pipe.remove());
+
+          // Hide screens
+          gameOverScreen.style.display = 'none';
+          startScreen.style.display = 'none';
+
+          // Start game loop
+          lastPipeTime = Date.now();
+          gameLoop();
+        }
+
+        function gameLoop() {
+          if (!gameRunning) return;
+
+          const currentTime = Date.now();
+
+          // Update bird position
+          velocity += gravity;
+          birdPosition += velocity;
+          bird.style.top = birdPosition + 'px';
+
+          // Check for collisions with top or bottom
+          if (
+            birdPosition < 0 ||
+            birdPosition > gameContainer.offsetHeight - birdHeight
+          ) {
+            gameOver();
+            return;
+          }
+
+          // Generate new pipes
+          if (currentTime - lastPipeTime > pipeFrequency) {
+            createPipe();
+            lastPipeTime = currentTime;
+          }
+
+          // Move pipes and check for collisions
+          movePipes();
+
+          // Continue the game loop
+          animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function createPipe() {
+          // Random gap position
+          const gapPosition =
+            Math.random() * (gameContainer.offsetHeight - pipeGap - 100) + 50;
+
+          // Create upper pipe
+          const upperPipe = document.createElement('div');
+          upperPipe.className = 'pipe';
+          upperPipe.style.left = gameContainer.offsetWidth + 'px';
+          upperPipe.style.top = '0px';
+          upperPipe.style.height = gapPosition + 'px';
+          gameContainer.appendChild(upperPipe);
+
+          // Create lower pipe
+          const lowerPipe = document.createElement('div');
+          lowerPipe.className = 'pipe';
+          lowerPipe.style.left = gameContainer.offsetWidth + 'px';
+          lowerPipe.style.top = gapPosition + pipeGap + 'px';
+          lowerPipe.style.height =
+            gameContainer.offsetHeight - gapPosition - pipeGap + 'px';
+          gameContainer.appendChild(lowerPipe);
+
+          // Add decorative elements to pipes
+          const upperDecor = document.createElement('div');
+          upperDecor.style.position = 'absolute';
+          upperDecor.style.bottom = '0';
+          upperDecor.style.left = '0';
+          upperDecor.style.width = '100%';
+          upperDecor.style.height = '10px';
+          upperDecor.style.backgroundColor = '#ff2a6d';
+          upperDecor.style.boxShadow = '0 0 5px #ff2a6d';
+          upperPipe.appendChild(upperDecor);
+
+          const lowerDecor = document.createElement('div');
+          lowerDecor.style.position = 'absolute';
+          lowerDecor.style.top = '0';
+          lowerDecor.style.left = '0';
+          lowerDecor.style.width = '100%';
+          lowerDecor.style.height = '10px';
+          lowerDecor.style.backgroundColor = '#ff2a6d';
+          lowerDecor.style.boxShadow = '0 0 5px #ff2a6d';
+          lowerPipe.appendChild(lowerDecor);
+
+          // Store pipe information
+          pipes.push({
+            element: upperPipe,
+            x: gameContainer.offsetWidth,
+            width: 60,
+            height: gapPosition,
+            passed: false,
+          });
+
+          pipes.push({
+            element: lowerPipe,
+            x: gameContainer.offsetWidth,
+            width: 60,
+            height: gameContainer.offsetHeight - gapPosition - pipeGap,
+            passed: false,
+          });
+        }
+
+        function movePipes() {
+          for (let i = 0; i < pipes.length; i++) {
+            const pipe = pipes[i];
+            pipe.x -= gameSpeed;
+            pipe.element.style.left = pipe.x + 'px';
+
+            // Check for collision with bird
+            if (
+              birdPosition + birdHeight >
+                gameContainer.offsetHeight - pipe.height &&
+              i % 2 === 1 && // Only check lower pipes
+              100 < pipe.x + pipe.width &&
+              100 + birdWidth > pipe.x
+            ) {
+              gameOver();
+              return;
+            }
+
+            // Check if bird passed the pipe
+            if (!pipe.passed && pipe.x + pipe.width < 100 && i % 2 === 0) {
+              pipe.passed = true;
+              score++;
+              scoreElement.textContent = score;
+
+              // Increase difficulty
+              if (score % 5 === 0) {
+                gameSpeed += 0.5;
+                pipeFrequency = Math.max(800, pipeFrequency - 100);
+              }
+
+              // Add score effect
+              scoreElement.style.transform = 'scale(1.2)';
+              scoreElement.style.color = '#ff2a6d';
+              setTimeout(() => {
+                scoreElement.style.transform = 'scale(1)';
+                scoreElement.style.color = '#00f3ff';
+              }, 300);
+            }
+
+            // Remove pipes that are off screen
+            if (pipe.x + pipe.width < 0) {
+              pipe.element.remove();
+              pipes.splice(i, 1);
+              i--;
+            }
+          }
+        }
+
+        function gameOver() {
+          gameRunning = false;
+          cancelAnimationFrame(animationId);
+
+          // Show game over screen
+          finalScoreElement.textContent = score;
+          gameOverScreen.style.display = 'flex';
+
+          // Add explosion effect
+          bird.style.backgroundColor = '#ff2a6d';
+          bird.style.boxShadow = '0 0 20px #ff2a6d';
+          setTimeout(() => {
+            bird.style.backgroundColor = 'transparent';
+            bird.style.boxShadow = 'none';
+          }, 300);
+        }
+
+        // Initial grid animation
+        setInterval(() => {
+          const grid = document.querySelector('.grid-overlay');
+          grid.style.backgroundPosition = `${Math.random() * 20}px ${
+            Math.random() * 20
+          }px`;
+        }, 100);
+      });
+    </script>
+  </body>
+</html>
